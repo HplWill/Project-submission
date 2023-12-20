@@ -87,47 +87,47 @@ public class User {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("用户信息{");
+        sb.append("User information{");
         if (Objects.nonNull(id)) {
-            sb.append("用户编号=").append(id).append(StringConstants.STRING_COMMA);
+            sb.append("Subscriber number=").append(id).append(StringConstants.STRING_COMMA);
         }
         if (Objects.nonNull(username)) {
-            sb.append("用户名=")
+            sb.append("username=")
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(username)
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(StringConstants.STRING_COMMA);
         }
         if (Objects.nonNull(password)) {
-            sb.append("用户密码=")
+            sb.append("password=")
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(password)
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(StringConstants.STRING_COMMA);
         }
         if (Objects.nonNull(nickname)) {
-            sb.append("用户昵称=")
+            sb.append("nickname=")
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(nickname)
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(StringConstants.STRING_COMMA);
         }
         if (Objects.nonNull(phone)) {
-            sb.append("手机号=")
+            sb.append("Mobile phone number=")
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(phone)
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(StringConstants.STRING_COMMA);
         }
         if (Objects.nonNull(address)) {
-            sb.append("地址=")
+            sb.append("address=")
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(address)
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(StringConstants.STRING_COMMA);
         }
         if (Objects.nonNull(status)) {
-            sb.append("用户状态=")
+            sb.append("status=")
                     .append(StringConstants.STRING_SINGLE_QUOTES)
                     .append(status == 1 ? StringConstants.STATUS_ENABLE : StringConstants.STATUS_DISABLE)
                     .append(StringConstants.STRING_SINGLE_QUOTES)

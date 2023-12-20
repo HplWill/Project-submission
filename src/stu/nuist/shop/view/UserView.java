@@ -25,16 +25,16 @@ public class UserView {
         System.out.println(TableConstants.TOP_BOTTOM + "\t\tNUIST SHOP\t\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.TOP_BOTTOM + "\t   *LOGIN MODE*\t\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
-        System.out.println("请输入用户名:");
+        System.out.println("Please enter your username:");
         String username = Start.sc.nextLine();
-        System.out.println("请输入密码:");
+        System.out.println("Please enter password:");
         String pwd = Start.sc.nextLine();
         //验证码
         Random r = new Random();
         int x = r.nextInt(20);
         int y = r.nextInt(20);
         boolean isPlus = r.nextBoolean();
-        System.out.println("请输入验证码：【 " + x + (isPlus ? " + " : " - ") + y + " =?】");
+        System.out.println("Please enter the verification code：【 " + x + (isPlus ? " + " : " - ") + y + " =?】");
         int ans = Integer.parseInt(Start.sc.nextLine());
 
         File file = new File(FileConstants.USER_INFO_PATH);
@@ -42,29 +42,29 @@ public class UserView {
             StringBuilder userList = MyUtil.readFile(FileConstants.USER_INFO_PATH);
             List<User> users = JSONArray.parseArray(userList.toString(), User.class);
             if (CollectionUtils.isEmpty(users) || !users.stream().map(User::getUsername).collect(Collectors.toList()).contains(username)) {
-                System.out.println("此用户名不存在！");
+                System.out.println("This user name does not exist！");
                 return false;
             } else if (users.stream().noneMatch(user -> user.getUsername().equals(username) && user.getPassword().equals(pwd))) {
-                System.out.println("该用户输入的密码错误！");
+                System.out.println("The user entered an incorrect password！");
                 return false;
             }
             User userLog = users.stream().filter(user -> user.getUsername().equals(username) && user.getPassword().equals(pwd)).collect(Collectors.toList()).get(0);
             if (StatusConstants.ENABLE == userLog.getStatus()) {
                 Start.loginUser = userLog;
             } else {
-                System.out.println("用户状态为" + StringConstants.STATUS_DISABLE + ",无法登录！");
+                System.out.println("User status is" + StringConstants.STATUS_DISABLE + ",Unable to log in！");
                 Thread.sleep(3000);
             }
         } else {
-            System.out.println("系统异常，用户信息文件错误！");
+            System.out.println("The system is abnormal, and the user information file is incorrect！");
             return true;
         }
         int i = isPlus ? x + y : x - y;
         if (i == ans) {
-            System.out.println("欢迎用户【" + Start.loginUser.getNickname() + "】登录！");
+            System.out.println("Welcome users【" + Start.loginUser.getNickname() + "】Log in!");
             Thread.sleep(3000);
         } else {
-            System.out.println("验证码错误！");
+            System.out.println("Verification code error！");
             return false;
         }
         return true;
@@ -72,18 +72,18 @@ public class UserView {
 
     public static void showUserMenu() throws Exception {
         MyUtil.clearConsole();
-        System.out.println(TableConstants.RIGHT_BOTTOM + "————————————————————————" + TableConstants.LEFT_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\tNUIST SHOP\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t*USER MODE*\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM_RIGHT + "————————————————————————" + TableConstants.TOP_BOTTOM_LEFT);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t1.商品查看\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t2.查看购物车\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t3.查看过往订单\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t4.查看用户信息\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t9.刷新\t\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t0.退出登录\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
-        System.out.print("请选择一个功能：");
+        System.out.println(TableConstants.RIGHT_BOTTOM + "————————————————————————————————" + TableConstants.LEFT_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\tNUIST SHOP\t\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t*USER MODE*\t\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM_RIGHT + "————————————————————————————————" + TableConstants.TOP_BOTTOM_LEFT);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t1.Product view\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t2.View cart\t\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t3.View past orders\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t4.View  User Information " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t9.Refresh\t\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t0.Log out\t\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.RIGHT_TOP + "————————————————————————————————" + TableConstants.LEFT_TOP);
+            System.out.print("Please select a feature：");
         userFunctionSwitch();
     }
 
@@ -115,7 +115,7 @@ public class UserView {
                 Start.showMainMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 showUserMenu();
                 break;
@@ -127,33 +127,33 @@ public class UserView {
         StringBuilder detailList = MyUtil.readFile(FileConstants.DETAIL_INFO_PATH);
         List<Detail> details = JSONArray.parseArray(detailList.toString(), Detail.class);
         if (CollectionUtils.isEmpty(details)) {
-            System.out.println("该用户现在还未添加商品！");
+            System.out.println("The user has not added an item yet！");
             return;
         }
         List<Detail> list = details.stream().filter(detail -> Objects.isNull(detail.getOrderId())).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(Start.cart) && CollectionUtils.isEmpty(list)) {
-            System.out.println("该用户现在还未添加商品！");
+            System.out.println("The user has not added an item yet！");
             return;
         }
         Start.cart = new HashMap<>();
         list.forEach(detail -> Start.cart.put(detail.getProductId(), detail));
         List<Detail> cartDetails = new ArrayList<>(Start.cart.values());
-        System.out.println("用户购物车商品信息列表：");
+        System.out.println("User shopping cart item information list：");
         for (int i = 0; i < cartDetails.size(); i++) {
             System.out.println((i + 1) + ". " + cartDetails.get(i));
         }
-        System.out.println("商品总数：" + cartDetails.stream().mapToInt(Detail::getNum).sum() + "\t"
-                + "商品总价：" + cartDetails.stream().mapToDouble(Detail::getTotalPrice).sum());
+        System.out.println("Total number of commodities：" + cartDetails.stream().mapToInt(Detail::getNum).sum() + "\t"
+                + "Gross commodity price：" + cartDetails.stream().mapToDouble(Detail::getTotalPrice).sum());
         MyCartSwitch(cartDetails, details);
     }
 
     private static void MyCartSwitch(List<Detail> cartDetails, List<Detail> details) throws Exception {
         System.out.println();
-        System.out.println("1.结算");
-        System.out.println("2.删除某个商品");
-        System.out.println("3.修改某个商品的数量");
-        System.out.println("0.返回");
-        System.out.println("请输入你要选择的功能：");
+        System.out.println("1.Settle an account");
+        System.out.println("2.Delete an item");
+        System.out.println("3.Modify the quantity of an item");
+        System.out.println("0.Back");
+        System.out.println("Please enter the function you want to select：");
         String key = Start.sc.nextLine();
         switch (key) {
             case "1":
@@ -161,30 +161,30 @@ public class UserView {
                 Start.cart = new HashMap<>();
                 return;
             case "2":
-                System.out.println("请输入你要删除的商品编号：");
+                    System.out.println("Please enter the item number you want to delete：");
                 String deleteId = Start.sc.nextLine();
                 Start.cart.remove(cartDetails.get(Integer.parseInt(deleteId) - 1).getId());
                 details.remove(cartDetails.get(Integer.parseInt(deleteId) - 1));
                 MyUtil.writeFile(FileConstants.DETAIL_INFO_PATH, JSON.toJSONString(details));
-                System.out.println("删除成功！");
+                System.out.println("Successfully deleted！");
                 return;
             case "3":
-                System.out.println("请输入你要修改的商品编号：");
+                System.out.println("Please enter the item number you want to modify：");
                 String modifyId = Start.sc.nextLine();
                 Detail detail = cartDetails.get(Integer.parseInt(modifyId) - 1);
                 details.remove(detail);
-                System.out.println("请输入你要修改的商品数量：");
+                System.out.println("Please enter the quantity of goods you want to modify：");
                 String modifyNum = Start.sc.nextLine();
                 detail.setNum(Integer.parseInt(modifyNum));
                 Start.cart.replace(detail.getId(), detail);
                 details.add(detail);
                 MyUtil.writeFile(FileConstants.DETAIL_INFO_PATH, JSON.toJSONString(details));
-                System.out.println("修改成功！");
+                System.out.println("Modified successfully！");
                 return;
             case "0":
                 return;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 MyCartSwitch(cartDetails, details);
         }
@@ -197,7 +197,7 @@ public class UserView {
         if (!file.exists()) {
             boolean newFile = file.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，订单信息文件创建失败！");
+                System.out.println("The system is abnormal. The order information file fails to be created！");
             }
         }
         StringBuilder orderList = MyUtil.readFile(FileConstants.ORDER_INFO_PATH);
@@ -228,7 +228,7 @@ public class UserView {
         if (!file2.exists()) {
             boolean newFile = file2.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，购物条目信息文件创建失败！");
+                System.out.println("Description The system is abnormal. Failed to create the shopping item information file！");
             }
         }
         StringBuilder detailList = MyUtil.readFile(FileConstants.DETAIL_INFO_PATH);
@@ -266,36 +266,36 @@ public class UserView {
         details.addAll(cartDetails);
         MyUtil.writeFile(FileConstants.ORDER_INFO_PATH, JSON.toJSONString(orders));
         MyUtil.writeFile(FileConstants.DETAIL_INFO_PATH, JSON.toJSONString(details));
-        System.out.println("生成订单【" + order.getId() + "】成功！");
+        System.out.println("Generate order【" + order.getId() + "】Successful！");
     }
 
     private static void showMyOrders() throws Exception {
         MyUtil.clearConsole();
         File file = new File(FileConstants.ORDER_INFO_PATH);
         if (!file.exists()) {
-            System.out.println("系统异常，订单信息文件读取失败！");
+            System.out.println("The system is abnormal. The order information file fails to be read！");
             return;
         }
         StringBuilder orderList = MyUtil.readFile(FileConstants.ORDER_INFO_PATH);
         List<Order> orders = JSONArray.parseArray(orderList.toString(), Order.class);
         if (CollectionUtils.isEmpty(orders)) {
-            System.out.println("订单信息列表为空,无法展示！");
+            System.out.println("The order information list is empty and cannot be displayed！");
             return;
         }
         List<Order> userOrders = orders.stream().filter(order -> order.getUserId().equals(Start.loginUser.getId())).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(userOrders)) {
-            System.out.println("该用户的订单信息列表为空,无法展示！");
+            System.out.println("The order information list for this user is empty and cannot be displayed！");
             return;
         }
         File file2 = new File(FileConstants.DETAIL_INFO_PATH);
         if (!file2.exists()) {
-            System.out.println("系统异常，订单详情信息文件读取失败！");
+            System.out.println("The system is abnormal. The order details file failed to be read！");
             return;
         }
         StringBuilder detailList = MyUtil.readFile(FileConstants.DETAIL_INFO_PATH);
         List<Detail> details = JSONArray.parseArray(detailList.toString(), Detail.class);
         if (CollectionUtils.isEmpty(details)) {
-            System.out.println("订单详情信息列表为空,无法展示！");
+            System.out.println("The order details list is empty and cannot be displayed！");
             return;
         }
         for (int i = 0; i < userOrders.size(); i++) {
@@ -308,7 +308,7 @@ public class UserView {
         }
         boolean isStay = false;
         while (!isStay) {
-            System.out.println("是否返回上一层(yes/no)？");
+            System.out.println("Whether to return to the previous layer(yes/no)？");
             isStay = Start.sc.nextLine().equals("yes");
         }
     }
@@ -317,29 +317,29 @@ public class UserView {
         MyUtil.clearConsole();
         File file = new File(FileConstants.USER_INFO_PATH);
         if (!file.exists()) {
-            System.out.println("系统异常，用户信息文件读取失败！");
+            System.out.println("The system is abnormal. The user information file fails to be read！");
             return;
         }
         StringBuilder userList = MyUtil.readFile(FileConstants.USER_INFO_PATH);
         List<User> users = JSONArray.parseArray(userList.toString(), User.class);
         if (CollectionUtils.isEmpty(users)) {
-            System.out.println("用户信息列表为空,无法展示！");
+            System.out.println("The user information list is empty and cannot be displayed！");
             return;
         }
         User u = users.stream().filter(user -> user.getUsername().equals(Start.loginUser.getUsername())).findAny().orElse(null);
         if (Objects.isNull(u)) {
-            System.out.println("未查到该用户信息,无法展示！");
+            System.out.println("The user information is not found and cannot be displayed！");
         } else {
             MyUtil.clearConsole();
             System.out.println(Start.loginUser);
             System.out.println();
-            System.out.println("1.修改昵称");
-            System.out.println("2.修改密码");
-            System.out.println("3.修改手机号");
-            System.out.println("4.修改地址");
-            System.out.println("5.销户");
-            System.out.println("0.返回上一层");
-            System.out.println("请输入你的选择:");
+            System.out.println("1.Change a nickname");
+            System.out.println("2.Change password");
+            System.out.println("3.Modify mobile phone number");
+            System.out.println("4.Modify address");
+            System.out.println("5.Account cancellation");
+            System.out.println("0.Return to previous layer");
+            System.out.println("Please enter your choice:");
             MyUserInfoSwitch(users);
         }
     }
@@ -348,10 +348,10 @@ public class UserView {
         String key = Start.sc.nextLine();
         switch (key) {
             case "1":
-                System.out.println("请输入你要修改的昵称：");
+                System.out.println("Please enter the nickname you want to change：");
                 String nickName = Start.sc.nextLine();
                 if (Objects.isNull(nickName)) {
-                    System.out.println("修改的昵称不能为空！");
+                    System.out.println("The modified nickname cannot be empty！");
                 } else {
                     users.remove(Start.loginUser);
                     Start.loginUser.setNickname(nickName);
@@ -363,65 +363,65 @@ public class UserView {
                 showUserMenu();
                 break;
             case "2":
-                System.out.println("请输入你要修改的密码：");
+                System.out.println("Please enter the password you want to change：");
                 String pwd = Start.sc.nextLine();
-                System.out.println("重复你要修改的密码：");
+                System.out.println("Repeat the password you want to change：");
                 String rePwd = Start.sc.nextLine();
                 if (Objects.isNull(pwd) || Objects.isNull(rePwd)) {
-                    System.out.println("修改的密码不能为空！");
+                    System.out.println("The new password cannot be empty！");
                 } else if (!pwd.equals(rePwd)) {
-                    System.out.println("两次密码输入不一致！");
+                    System.out.println("The two password entries are inconsistent！");
                 } else if (!pwd.matches(RegexConstants.PWD_REGEX) || !rePwd.matches(RegexConstants.PWD_REGEX)) {
-                    System.out.println("密码格式错误！");
+                    System.out.println("Password format error！");
                 } else {
                     users.remove(Start.loginUser);
                     Start.loginUser.setPassword(pwd);
                     users.add(Start.loginUser);
                     MyUtil.writeFile(FileConstants.USER_INFO_PATH, JSON.toJSONString(users));
-                    System.out.println("密码修改成功！");
+                    System.out.println("Password changed successfully！");
                 }
                 Thread.sleep(3000);
                 showUserMenu();
                 break;
             case "3":
-                System.out.println("请输入你要修改的手机号：");
+                System.out.println("Please enter the phone number you want to change：");
                 String phone = Start.sc.nextLine();
                 if (Objects.isNull(phone)) {
-                    System.out.println("修改的手机号不能为空！");
+                    System.out.println("The changed mobile phone number cannot be empty！");
                 } else if (!phone.matches("[0-9]{11}")) {
-                    System.out.println("手机号码格式错误！");
+                    System.out.println("The mobile phone number format is incorrect！");
                 } else {
                     users.remove(Start.loginUser);
                     Start.loginUser.setPhone(phone);
                     users.add(Start.loginUser);
                     MyUtil.writeFile(FileConstants.USER_INFO_PATH, JSON.toJSONString(users));
-                    System.out.println("手机号修改成功！");
+                    System.out.println("The mobile phone number is successfully changed！");
                 }
                 Thread.sleep(3000);
                 showUserMenu();
                 break;
             case "4":
-                System.out.println("请输入你要修改的地址：");
+                System.out.println("Please enter the address you want to change：");
                 String address = Start.sc.nextLine();
                 users.remove(Start.loginUser);
                 Start.loginUser.setAddress(address);
                 users.add(Start.loginUser);
                 MyUtil.writeFile(FileConstants.USER_INFO_PATH, JSON.toJSONString(users));
-                System.out.println("地址修改成功！");
+                System.out.println("Address modification succeeded！");
                 Thread.sleep(3000);
                 showUserMenu();
                 break;
             case "5":
-                System.out.println("是否确认要进行销户操作(yes/no)？：");
+                System.out.println("Confirm whether to perform account cancellation operation(yes/no)？：");
                 boolean isCancel = Start.sc.nextLine().equals("yes");
                 if (isCancel) {
                     users.remove(Start.loginUser);
                     Start.loginUser.setStatus(StatusConstants.DISABLE);
                     users.add(Start.loginUser);
                     MyUtil.writeFile(FileConstants.USER_INFO_PATH, JSON.toJSONString(users));
-                    System.out.println("用户销户成功！");
+                    System.out.println("The user successfully logged out the account！");
                 } else {
-                    System.out.println("取消销户行为！");
+                    System.out.println("Cancel account cancellation！");
                 }
                 Thread.sleep(3000);
                 showUserMenu();
@@ -430,7 +430,7 @@ public class UserView {
                 showUserMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 showMyUserInfo();
                 break;

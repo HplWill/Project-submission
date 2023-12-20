@@ -75,13 +75,13 @@ public class Order {
 
     @Override
     public String toString() {
-        return "订单信息{" +
-                "订单编号=" + id +
-                ", 用户编号=" + userId +
-                ", 订单编码='" + no + '\'' +
-                ", 订单商品总数=" + num +
-                ", 订单总价=" + totalPrice +
-                ", 创建时间=" + createDate +
+        return "Order information{" +
+                "Order number=" + id +
+                ", Subscriber number=" + userId +
+                ", Order code='" + no + '\'' +
+                ", Total goods ordered=" + num +
+                ", Total order price=" + totalPrice +
+                ", Creation time=" + createDate +
                 '}';
     }
 }

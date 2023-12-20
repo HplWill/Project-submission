@@ -37,24 +37,24 @@ public class GoodsView {
         if (!file.exists()) {
             boolean newFile = file.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，商品信息文件创建失败！");
+                System.out.println("The product information file fails to be created because the system is abnormal！");
             }
         }
         StringBuilder productList = MyUtil.readFile(FileConstants.GOODS_INFO_PATH);
         List<Product> products = JSONArray.parseArray(productList.toString(), Product.class);
-        System.out.println("商品信息列表：");
+        System.out.println("Product information list：");
         List<Product> subList = products.subList((pageNum - 1) * pageSize, Math.min(pageNum * pageSize - 1, products.size()));
         for (int i = 0; i < subList.size(); i++) {
             System.out.println((i + 1) + ". " + subList.get(i).toString());
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("1.首页\t2.上一页\t3.下一页\t4.尾页\t");
+        sb.append("1.Home page\t2.Previous\t3.Next\t4.Trailing page\t");
         if (Objects.nonNull(Start.loginUser) || Objects.nonNull(Start.loginManager)) {
-            sb.append("8.选择商品进行操作\t");
+            sb.append("8.Select the item to operate\t");
         }
-        sb.append("9.修改页数\t0.返回上一层");
+        sb.append("9.Page change\t0.Return to previous layer");
         System.out.println(sb);
-        System.out.println("请输入你要进行的选择：");
+        System.out.println("Please enter the selection you want to make：");
         productInfoSwitch(products, subList);
     }
 
@@ -79,18 +79,18 @@ public class GoodsView {
                 break;
             case "8":
                 if (Objects.nonNull(Start.loginUser)) {
-                    System.out.println("请选择你要加入购物车的商品序号:");
+                    System.out.println("Please select the item number you want to add to your cart:");
                     Product product = subList.get(Integer.parseInt(Start.sc.nextLine()) - 1);
                     showUserGoodsInfo(product);
                     break;
                 } else if (Objects.nonNull(Start.loginManager)) {
-                    System.out.println("请选择你要修改的商品序号：");
+                    System.out.println("Please select the item number you want to modify：");
                     Product product = subList.get(Integer.parseInt(Start.sc.nextLine()) - 1);
                     showManagerGoodsInfo(product, products);
                     break;
                 }
             case "9":
-                System.out.println("请输入你需要修改的单页条数(>0)：");
+                System.out.println("Please enter the number of pages you want to modify(>0)：");
                 pageSize = Integer.parseInt(Start.sc.nextLine());
                 showMenu();
                 break;
@@ -104,16 +104,16 @@ public class GoodsView {
                 }
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 StringBuilder sb = new StringBuilder();
-                sb.append("1.首页\t2.上一页\t3.下一页\t4.尾页\t");
+                sb.append("1.Home page\t2.Previous\t3.Next\t4.Trailing page\t");
                 if (Objects.nonNull(Start.loginUser) || Objects.nonNull(Start.loginManager)) {
-                    sb.append("8.选择商品进行操作\t");
+                    sb.append("8.Select the item to operate\t");
                 }
-                sb.append("9.修改页数\t0.返回上一层");
+                sb.append("9.Page change\t0.Return to previous layer");
                 System.out.println(sb);
-                System.out.println("请输入你要进行的选择：");
+                System.out.println("Please enter the selection you want to make：");
                 productInfoSwitch(products, subList);
                 break;
         }
@@ -127,12 +127,12 @@ public class GoodsView {
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
         System.out.println(product.toString());
         System.out.println();
-        System.out.println("1.删除该商品");
-        System.out.println("2.修改该商品名称");
-        System.out.println("3.修改该商品单价");
-        System.out.println("4.修改该商品单位");
-        System.out.println("0.返回上一层");
-        System.out.println("请选择你要对该商品进行的操作：");
+        System.out.println("1.Delete the product");
+        System.out.println("2.Modify the product name");
+        System.out.println("3.Modify the unit price of the item");
+        System.out.println("4.Modify the commodity unit");
+        System.out.println("0.Return to previous layer");
+        System.out.println("Please select what you want to do with the product：");
         ManagerGoodsInfoSwitch(product, products);
     }
 
@@ -143,45 +143,45 @@ public class GoodsView {
             case "1":
                 products.remove(product);
                 MyUtil.writeFile(FileConstants.GOODS_INFO_PATH, JSON.toJSONString(products));
-                System.out.println("删除成功！");
+                System.out.println("Successfully deleted！");
                 Thread.sleep(2000);
                 pageNum = 1;
                 showMenu();
                 break;
             case "2":
                 index = products.indexOf(product);
-                System.out.println("请输入你要修改的商品名称：");
+                System.out.println("Please enter the name of the product you want to modify：");
                 product.setName(Start.sc.nextLine());
                 product.setUnit(Start.sc.nextLine());
                 products.remove(index);
                 products.add(index, product);
                 MyUtil.writeFile(FileConstants.GOODS_INFO_PATH, JSON.toJSONString(products));
-                System.out.println("修改商品名称成功！");
+                System.out.println("Modifying the product name succeeded！");
                 Thread.sleep(2000);
                 pageNum = 1;
                 showMenu();
                 break;
             case "3":
                 index = products.indexOf(product);
-                System.out.println("请输入你要修改的商品单价：");
+                System.out.println("Please enter the unit price of the item you want to modify：");
                 product.setPrice(Double.parseDouble(Start.sc.nextLine()));
                 product.setUnit(Start.sc.nextLine());
                 products.remove(index);
                 products.add(index, product);
                 MyUtil.writeFile(FileConstants.GOODS_INFO_PATH, JSON.toJSONString(products));
-                System.out.println("修改商品单价成功！");
+                System.out.println("Modifying the unit price succeeded！");
                 Thread.sleep(2000);
                 pageNum = 1;
                 showMenu();
                 break;
             case "4":
                 index = products.indexOf(product);
-                System.out.println("请输入你要修改的商品单位：");
+                System.out.println("Please enter the product unit you want to modify：");
                 product.setUnit(Start.sc.nextLine());
                 products.remove(index);
                 products.add(index, product);
                 MyUtil.writeFile(FileConstants.GOODS_INFO_PATH, JSON.toJSONString(products));
-                System.out.println("修改商品单位成功！");
+                System.out.println("Modifying the commodity unit succeeded！");
                 Thread.sleep(2000);
                 pageNum = 1;
                 showMenu();
@@ -190,7 +190,7 @@ public class GoodsView {
                 showMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 showManagerGoodsInfo(product, products);
                 break;
@@ -205,10 +205,10 @@ public class GoodsView {
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
         System.out.println(product.toString());
         System.out.println();
-        System.out.println("1.直接购入该商品");
-        System.out.println("2.将该商品加入购物车");
-        System.out.println("0.返回上一层");
-        System.out.println("请选择你要对该商品进行的操作：");
+        System.out.println("1.Direct purchase of the goods");
+        System.out.println("2.Add the item to the cart");
+        System.out.println("0.Return to previous layer");
+        System.out.println("Please select what you want to do with the product：");
         UserGoodsInfoSwitch(product);
     }
 
@@ -221,14 +221,14 @@ public class GoodsView {
                 showMenu();
                 break;
             case "2":
-                System.out.println("请输入你要购入的商品数量：");
+                System.out.println("Please enter the quantity of the goods you want to purchase：");
                 int num = Integer.parseInt(Start.sc.nextLine());
                 Detail detail = new Detail(null, product.getId(), num, num * product.getPrice(), null);
                 File file2 = new File(FileConstants.DETAIL_INFO_PATH);
                 if (!file2.exists()) {
                     boolean newFile = file2.createNewFile();
                     if (!newFile) {
-                        System.out.println("系统异常，购物条目信息文件创建失败！");
+                        System.out.println("Description The system is abnormal. Failed to create the shopping item information file！");
                     }
                 }
                 StringBuilder detailList = MyUtil.readFile(FileConstants.DETAIL_INFO_PATH);
@@ -269,7 +269,7 @@ public class GoodsView {
                 }
                 details.add(detail);
                 MyUtil.writeFile(FileConstants.DETAIL_INFO_PATH, JSON.toJSONString(details));
-                System.out.println("商品【" + product.getName() + "】加入购物车成功！生成购物条目【" + detail.getId() + "】成功！");
+                System.out.println("product【" + product.getName() + "】Add to cart successfully！Generate shopping items【" + detail.getId() + "】Successful！");
                 Thread.sleep(3000);
                 showMenu();
                 break;
@@ -277,7 +277,7 @@ public class GoodsView {
                 showMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 showUserGoodsInfo(product);
                 break;
@@ -285,7 +285,7 @@ public class GoodsView {
     }
 
     private static void buyAndGenerateOrder(Product product) throws Exception {
-        System.out.println("请输入你要购入的商品数量：");
+        System.out.println("Please enter the quantity of the goods you want to purchase：");
         int num = Integer.parseInt(Start.sc.nextLine());
         Order order = new Order(null, Start.loginUser.getId(), null, num, num * product.getPrice(), DateTime.now().toJdkDate());
         Detail detail = new Detail(null, product.getId(), num, num * product.getPrice(), null);
@@ -293,7 +293,7 @@ public class GoodsView {
         if (!file.exists()) {
             boolean newFile = file.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，订单信息文件创建失败！");
+                System.out.println("The system is abnormal. The order information file fails to be created！");
             }
         }
         StringBuilder orderList = MyUtil.readFile(FileConstants.ORDER_INFO_PATH);
@@ -325,7 +325,7 @@ public class GoodsView {
         if (!file2.exists()) {
             boolean newFile = file2.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，购物条目信息文件创建失败！");
+                System.out.println("Description The system is abnormal. Failed to create the shopping item information file！");
             }
         }
         StringBuilder detailList = MyUtil.readFile(FileConstants.DETAIL_INFO_PATH);
@@ -355,6 +355,6 @@ public class GoodsView {
         details.add(detail);
         MyUtil.writeFile(FileConstants.ORDER_INFO_PATH, JSON.toJSONString(orders));
         MyUtil.writeFile(FileConstants.DETAIL_INFO_PATH, JSON.toJSONString(details));
-        System.out.println("购买商品【" + product.getName() + "】成功！生成订单【" + order.getId() + "】成功！");
+        System.out.println("Purchase goods【" + product.getName() + "】Successful！Generate order【" + order.getId() + "】Successful！");
     }
 }

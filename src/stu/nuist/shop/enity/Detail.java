@@ -72,11 +72,11 @@ public class Detail {
 
     @Override
     public String toString() {
-        return "预购商品信息{" +
-                "编号=" + id +
-                ", 商品编号=" + productId +
-                ", 数量=" + num +
-                ", 总价=" + totalPrice +
+        return "Pre-order product information{" +
+                "ID=" + id +
+                ", Item number=" + productId +
+                ", Quantity=" + num +
+                ", Total price=" + totalPrice +
                 '}';
     }
 }

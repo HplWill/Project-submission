@@ -12,8 +12,8 @@ public class StringConstants {
     public static final String CHARSET_NAME = "UTF-8";
     public static final String SUPER_MANAGER_USERNAME = "admin";
     public static final String SUPER_MANAGER_PWD = "admin";
-    public static final String STATUS_ENABLE = "活跃中";
-    public static final String STATUS_DISABLE = "已销户";
+    public static final String STATUS_ENABLE = "active";
+    public static final String STATUS_DISABLE = "Closed account";
     public static final String STRING_COMMA = ",";
     public static final String STRING_SINGLE_QUOTES = "'";
     public static final String STRING_BLANK = "";

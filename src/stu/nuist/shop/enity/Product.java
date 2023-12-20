@@ -51,7 +51,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "商品 [编号=" + id + ", 名称=" + name + ", 单价=" + price + ", 单位=" + unit
+        return "product [ID=" + id + ", Name=" + name + ", price=" + price + ", unit=" + unit
                 + "]";
     }
 

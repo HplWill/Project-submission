@@ -26,9 +26,9 @@ public class ManagerView {
         System.out.println(TableConstants.TOP_BOTTOM + "\t\tNUIST SHOP\t\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.TOP_BOTTOM + "\t *LOGIN MANAGER*\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
-        System.out.println("请输入用户名:");
+        System.out.println("Please enter your username:");
         String username = Start.sc.nextLine();
-        System.out.println("请输入密码:");
+        System.out.println("Please enter password:");
         String pwd = Start.sc.nextLine();
 
         File file = new File(FileConstants.MANAGER_INFO_PATH);
@@ -37,7 +37,7 @@ public class ManagerView {
             List<User> users = JSONArray.parseArray(userList.toString(), User.class);
             if (CollectionUtils.isEmpty(users) || !users.stream()
                     .map(User::getUsername).collect(Collectors.toList()).contains(username)) {
-                System.out.println("此管理员用户名不存在！");
+                System.out.println("The administrator user name does not exist！");
                 return false;
             } else if (users.stream().noneMatch(user ->
                     user.getUsername().equals(username) && user.getPassword().equals(pwd))) {
@@ -50,14 +50,14 @@ public class ManagerView {
             if (StatusConstants.ENABLE == userLog.getStatus()) {
                 Start.loginManager = userLog;
             } else {
-                System.out.println("管理员用户状态为" + StringConstants.STATUS_DISABLE + ",无法登录！");
+                System.out.println("The status of the administrator user is" + StringConstants.STATUS_DISABLE + ",Unable to log in！");
                 Thread.sleep(3000);
             }
         } else {
-            System.out.println("系统异常，用户信息文件错误！");
+            System.out.println("The system is abnormal, and the user information file is incorrect！");
             return true;
         }
-        System.out.println("欢迎管理员【" + Start.loginManager.getNickname() + "】登录！");
+        System.out.println("Welcome administrator【" + Start.loginManager.getNickname() + "】Log in！");
         Thread.sleep(3000);
         //showManagerMenu();
         return true;
@@ -69,13 +69,13 @@ public class ManagerView {
         System.out.println(TableConstants.TOP_BOTTOM + "\t\tNUIST SHOP\t\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.TOP_BOTTOM + "\t  *SUPER MANAGER*\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.TOP_BOTTOM_RIGHT + "————————————————————————" + TableConstants.TOP_BOTTOM_LEFT);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t1.用户查看\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t2.管理员查看\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t3.添加管理员\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t9.刷新\t\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t0.退出登录\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t1.User view\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t2.Administrator view\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t3.Add an administrator\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t9.Refresh\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t0.Log out\t\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
-        System.out.print("请选择一个功能：");
+        System.out.print("Please select a feature：");
         superManagerFunctionSwitch();
     }
 
@@ -103,7 +103,7 @@ public class ManagerView {
                 Start.showMainMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 showSuperManagerMenu();
 
@@ -117,16 +117,16 @@ public class ManagerView {
             StringBuilder userList = MyUtil.readFile(FileConstants.USER_INFO_PATH);
             List<User> users = JSONArray.parseArray(userList.toString(), User.class);
             if (CollectionUtils.isEmpty(users)) {
-                System.out.println("用户信息列表为空，无法展示！");
+                System.out.println("The user information list is empty and cannot be displayed！");
                 Thread.sleep(3000);
                 showSuperManagerMenu();
             } else {
-                System.out.println("用户信息列表：");
+                System.out.println("User information list：");
                 for (int i = 0; i < users.size(); i++) {
                     System.out.println((i + 1) + ". " + users.get(i).toString());
                 }
                 System.out.println();
-                System.out.println("是否对指定用户进行操作？(no-返回超管菜单,输入列表编号进行操作选择)：");
+                System.out.println("Whether to perform operations on the specified user？(no-Return to the supertube menu, enter the list number for operation selection)：");
                 String key = Start.sc.nextLine();
                 if ("no".equals(key)) {
                     showSuperManagerMenu();
@@ -137,9 +137,9 @@ public class ManagerView {
         } else {
             boolean newFile = file.createNewFile();
             if (newFile) {
-                System.out.println("用户信息列表为空，无法展示！");
+                System.out.println("The user information list is empty and cannot be displayed！");
             } else {
-                System.out.println("系统异常，用户信息文件创建失败！");
+                System.out.println("The user information file fails to be created because the system is abnormal！");
             }
             Thread.sleep(3000);
             showSuperManagerMenu();
@@ -150,9 +150,9 @@ public class ManagerView {
         MyUtil.clearConsole();
         System.out.println(users.get(i).toString());
         System.out.println();
-        System.out.println("1.修改用户状态");
-        System.out.println("0.返回");
-        System.out.println("请选择你对该用户信息要进行的操作：");
+        System.out.println("1.Modifying User status");
+        System.out.println("0.Back");
+        System.out.println("Please select what you want to do with this user information：");
         operateUserInfoSwitch(users, i);
     }
 
@@ -162,7 +162,7 @@ public class ManagerView {
             case "1":
                 users.get(i).setStatus(-1 * users.get(i).getStatus());
                 MyUtil.writeFile(FileConstants.USER_INFO_PATH, JSON.toJSONString(users));
-                System.out.println("用户【" + users.get(i).getId() + "】状态修改成功！");
+                System.out.println("user【" + users.get(i).getId() + "】Status modified successfully！");
                 Thread.sleep(3000);
                 showSuperManagerMenu();
                 break;
@@ -170,7 +170,7 @@ public class ManagerView {
                 showSuperManagerMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 operateUserInfo(users, i);
                 break;
@@ -183,16 +183,16 @@ public class ManagerView {
             StringBuilder userList = MyUtil.readFile(FileConstants.MANAGER_INFO_PATH);
             List<User> users = JSONArray.parseArray(userList.toString(), User.class);
             if (CollectionUtils.isEmpty(users)) {
-                System.out.println("管理员信息列表为空，无法展示！");
+                System.out.println("The administrator information list is empty and cannot be displayed！");
                 Thread.sleep(3000);
                 showSuperManagerMenu();
             } else {
-                System.out.println("管理员信息列表：");
+                System.out.println("Administrator information list：");
                 for (int i = 0; i < users.size(); i++) {
                     System.out.println((i + 1) + ". " + users.get(i).toString());
                 }
                 System.out.println();
-                System.out.println("是否对指定管理员用户进行操作？(no-返回超管菜单,输入列表编号进行操作选择)：");
+                System.out.println("Whether to perform operations on the specified administrator？(no-Return to the supertube menu, enter the list number for operation selection)：");
                 String key = Start.sc.nextLine();
                 if ("no".equals(key)) {
                     showSuperManagerMenu();
@@ -203,9 +203,9 @@ public class ManagerView {
         } else {
             boolean newFile = file.createNewFile();
             if (newFile) {
-                System.out.println("管理员信息列表为空，无法展示！");
+                System.out.println("The administrator information list is empty and cannot be displayed！");
             } else {
-                System.out.println("系统异常，管理员信息文件创建失败！");
+                System.out.println("The system is abnormal. The administrator information file fails to be created. Procedure！");
             }
             Thread.sleep(3000);
             showSuperManagerMenu();
@@ -214,9 +214,9 @@ public class ManagerView {
 
     private static void operateManagerInfo(List<User> users, int i) throws Exception {
         if (StringConstants.SUPER_MANAGER_USERNAME.equals(users.get(i).getUsername())) {
-            System.out.println("你不能对你这名超管进行操作！");
+            System.out.println("You can't manipulate your supertube！");
             Thread.sleep(1500);
-            System.out.println("是否对指定管理员用户进行操作？(no-返回超管菜单,输入列表编号进行操作选择)：");
+            System.out.println("Whether to perform operations on the specified administrator？(no-Return to the supertube menu, enter the list number for operation selection)：");
             String key = Start.sc.nextLine();
             if ("no".equals(key)) {
                 showSuperManagerMenu();
@@ -233,11 +233,11 @@ public class ManagerView {
         MyUtil.clearConsole();
         System.out.println(users.get(i).toString());
         System.out.println();
-        System.out.println("1.修改管理员状态");
-        System.out.println("2.修改管理员密码");
-        System.out.println("3.修改管理员昵称");
-        System.out.println("0.返回");
-        System.out.println("请选择你对该用户信息要进行的操作：");
+        System.out.println("1.Modifying Administrator Status");
+        System.out.println("2.Changing the Administrator Password");
+        System.out.println("3.Changing an administrator nickname");
+        System.out.println("0.back");
+        System.out.println("Please select what you want to do with this user information：");
         operateManagerInfoSwitch(users, i);
     }
 
@@ -247,7 +247,7 @@ public class ManagerView {
             case "1":
                 users.get(i).setStatus(-1 * users.get(i).getStatus());
                 MyUtil.writeFile(FileConstants.MANAGER_INFO_PATH, JSON.toJSONString(users));
-                System.out.println("管理员【" + users.get(i).getId() + "】状态修改成功！");
+                System.out.println("Administrator【" + users.get(i).getId() + "】Status modified successfully！");
                 Thread.sleep(3000);
                 showSuperManagerMenu();
                 break;
@@ -261,7 +261,7 @@ public class ManagerView {
                 showSuperManagerMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 operateManagerInfo(users, i);
                 break;
@@ -269,44 +269,44 @@ public class ManagerView {
     }
 
     private static void modifyMangerPassword(List<User> users, int i) throws Exception {
-        System.out.println("请输入你要修改后的密码：");
+        System.out.println("Please enter your new password：");
         String pwd = Start.sc.nextLine();
         if (Objects.isNull(pwd)) {
-            System.out.println("密码不能为空！");
+            System.out.println("The password cannot be empty！");
             Thread.sleep(2000);
             showOperateManagerInfo(users, i);
         } else if (!pwd.matches(RegexConstants.PWD_REGEX)) {
-            System.out.println("密码格式错误！");
+            System.out.println("Password format error！");
             Thread.sleep(2000);
             showOperateManagerInfo(users, i);
         } else if (pwd.equals(users.get(i).getPassword())) {
-            System.out.println("密码不能和原密码相同！");
+            System.out.println("The password cannot be the same as the old password！");
             Thread.sleep(2000);
             showOperateManagerInfo(users, i);
         } else {
             users.get(i).setPassword(pwd);
             MyUtil.writeFile(FileConstants.MANAGER_INFO_PATH, JSON.toJSONString(users));
-            System.out.println("管理员【" + users.get(i).getId() + "】密码修改成功！");
+            System.out.println("Administrator【" + users.get(i).getId() + "】Password changed successfully！");
             Thread.sleep(3000);
             showSuperManagerMenu();
         }
     }
 
     private static void modifyMangerNickName(List<User> users, int i) throws Exception {
-        System.out.println("请输入你要修改后的昵称：");
+        System.out.println("Please enter the nickname you want to change：");
         String nickName = Start.sc.nextLine();
         if (Objects.isNull(nickName)) {
-            System.out.println("昵称不能为空！");
+            System.out.println("Nicknames cannot be empty！");
             Thread.sleep(2000);
             showOperateManagerInfo(users, i);
         } else if (nickName.equals(users.get(i).getNickname())) {
-            System.out.println("昵称不能和原昵称相同！");
+            System.out.println("The nickname cannot be the same as the original nickname！");
             Thread.sleep(2000);
             showOperateManagerInfo(users, i);
         } else {
             users.get(i).setNickname(nickName);
             MyUtil.writeFile(FileConstants.MANAGER_INFO_PATH, JSON.toJSONString(users));
-            System.out.println("管理员【" + users.get(i).getId() + "】昵称修改成功！");
+            System.out.println("Administrator【" + users.get(i).getId() + "】Nickname modified successfully！");
             Thread.sleep(3000);
             showSuperManagerMenu();
         }
@@ -319,34 +319,34 @@ public class ManagerView {
         System.out.println(TableConstants.TOP_BOTTOM + "\t   *ADD MANAGER*\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
 
-        System.out.println("请输入密码:");
+        System.out.println("Please enter password:");
         String pwd = Start.sc.nextLine();
-        System.out.println("请输入确认密码:");
+        System.out.println("Please enter your confirmation password:");
         String rePwd = Start.sc.nextLine();
-        System.out.println("请输入昵称:");
+        System.out.println("Please enter a nickname:");
         String nickname = Start.sc.nextLine();
-        System.out.println("请输入手机号码:");
+        System.out.println("Please enter your mobile number:");
         String phone = Start.sc.nextLine();
-        System.out.println("请输入地址:");
+        System.out.println("Please enter the address:");
         String address = Start.sc.nextLine();
 
         System.out.println();
         Thread.sleep(1500);
 
         if (Objects.isNull(pwd)) {
-            System.out.println("密码不能为空！");
+            System.out.println("The password cannot be empty！");
             return false;
         }
         if (!pwd.equals(rePwd)) {
-            System.out.println("两次密码输入不一致！");
+            System.out.println("The two password entries are inconsistent！");
             return false;
         }
         if (!pwd.matches(RegexConstants.PWD_REGEX) || !rePwd.matches(RegexConstants.PWD_REGEX)) {
-            System.out.println("密码格式错误！");
+            System.out.println("Password format error！");
             return false;
         }
         if (!phone.matches("[0-9]{11}")) {
-            System.out.println("手机号码格式错误！");
+            System.out.println("The mobile phone number format is incorrect！");
             return false;
         }
         User user = new User(null, null, pwd, nickname, phone, address, null);
@@ -354,7 +354,7 @@ public class ManagerView {
         if (!file.exists()) {
             boolean newFile = file.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，用户信息文件创建失败！");
+                System.out.println("The user information file fails to be created because the system is abnormal！");
                 return true;
             }
         }
@@ -386,7 +386,7 @@ public class ManagerView {
         user.setStatus(StatusConstants.ENABLE);
         users.add(user);
         MyUtil.writeFile(FileConstants.MANAGER_INFO_PATH, JSON.toJSONString(users));
-        System.out.println("添加管理员成功！");
+        System.out.println("Succeeded in adding an administrator！");
         return true;
 
     }
@@ -397,14 +397,14 @@ public class ManagerView {
         System.out.println(TableConstants.TOP_BOTTOM + "\t\tNUIST SHOP\t\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.TOP_BOTTOM + "\t  *MANAGER MODE*\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.TOP_BOTTOM_RIGHT + "————————————————————————" + TableConstants.TOP_BOTTOM_LEFT);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t1.商品查看\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t2.添加商品\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t3.下架商品\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t4.修改商品信息\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t9.刷新\t\t\t " + TableConstants.TOP_BOTTOM);
-        System.out.println(TableConstants.TOP_BOTTOM + "\t\t0.退出登录\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t1.Product view\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t2.Add goods\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t3.Removed goods\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t4.Modify product information\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t9.Refresh\t\t\t " + TableConstants.TOP_BOTTOM);
+        System.out.println(TableConstants.TOP_BOTTOM + "\t\t0.Log out\t\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
-        System.out.print("请选择一个功能：");
+        System.out.print("Please select a feature：");
         managerFunctionSwitch();
     }
 
@@ -426,7 +426,7 @@ public class ManagerView {
                 Start.showMainMenu();
                 break;
             default:
-                System.out.println("无此功能，敬请期待！");
+                System.out.println("Without this function, please stay tuned！");
                 Thread.sleep(3000);
                 showManagerMenu();
                 break;
@@ -440,18 +440,18 @@ public class ManagerView {
         System.out.println(TableConstants.TOP_BOTTOM + "\t   *ADD GOODS*\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
 
-        System.out.println("请输入商品名:");
+        System.out.println("Please enter the product name:");
         String name = Start.sc.nextLine();
-        System.out.println("请输入商品价格:");
+        System.out.println("Please enter the price of the item:");
         String price = Start.sc.nextLine();
-        System.out.println("请输入商品单位:");
+        System.out.println("Please enter the product unit:");
         String unit = Start.sc.nextLine();
         Product product = new Product(null, name, Double.parseDouble(price), unit);
         File file = new File(FileConstants.GOODS_INFO_PATH);
         if (!file.exists()) {
             boolean newFile = file.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，商品信息文件创建失败！");
+                System.out.println("The product information file fails to be created because the system is abnormal！");
             }
         }
 
@@ -480,6 +480,6 @@ public class ManagerView {
         }
         products.add(product);
         MyUtil.writeFile(FileConstants.GOODS_INFO_PATH, JSON.toJSONString(products));
-        System.out.println("添加商品成功！");
+        System.out.println("Item added successfully！");
     }
 }

@@ -31,40 +31,40 @@ public class RegisterView {
         System.out.println(TableConstants.TOP_BOTTOM + "\t  *REGISTER MODE*\t " + TableConstants.TOP_BOTTOM);
         System.out.println(TableConstants.RIGHT_TOP + "————————————————————————" + TableConstants.LEFT_TOP);
 
-        System.out.println("请输入用户名:");
+        System.out.println("Please enter your username:");
         String username = Start.sc.nextLine();
-        System.out.println("请输入密码:");
+        System.out.println("Please enter password:");
         String pwd = Start.sc.nextLine();
-        System.out.println("请输入确认密码:");
+        System.out.println("Please enter your confirmation password:");
         String rePwd = Start.sc.nextLine();
-        System.out.println("请输入昵称:");
+        System.out.println("Please enter a nickname:");
         String nickname = Start.sc.nextLine();
-        System.out.println("请输入手机号码:");
+        System.out.println("Please enter your mobile number:");
         String phone = Start.sc.nextLine();
-        System.out.println("请输入地址:");
+        System.out.println("Please enter the address:");
         String address = Start.sc.nextLine();
 
         System.out.println();
         Thread.sleep(1500);
 
         if (MyUtil.isEmpty(username)) {
-            System.out.println("用户名不能为空！");
+            System.out.println("The user name cannot be empty！");
             return false;
         }
         if (Objects.isNull(pwd)) {
-            System.out.println("密码不能为空！");
+            System.out.println("The password cannot be empty！");
             return false;
         }
         if (!pwd.equals(rePwd)) {
-            System.out.println("两次密码输入不一致！");
+            System.out.println("The two password entries are inconsistent！");
             return false;
         }
         if (!pwd.matches(RegexConstants.PWD_REGEX) || !rePwd.matches(RegexConstants.PWD_REGEX)) {
-            System.out.println("密码格式错误！");
+            System.out.println("Password format error！");
             return false;
         }
         if (!phone.matches("[0-9]{11}")) {
-            System.out.println("手机号码格式错误！");
+                System.out.println("The mobile phone number format is incorrect！");
             return false;
         }
         User user = new User(null, username, pwd, nickname, phone, address, null);
@@ -72,7 +72,7 @@ public class RegisterView {
         if (!file.exists()) {
             boolean newFile = file.createNewFile();
             if (!newFile) {
-                System.out.println("系统异常，用户信息文件创建失败！");
+                System.out.println("The user information file fails to be created because the system is abnormal！");
                 return true;
             }
         }
@@ -82,7 +82,7 @@ public class RegisterView {
         if (CollectionUtils.isEmpty(users)) {
             users = new ArrayList<>();
         } else if (users.stream().map(User::getUsername).collect(Collectors.toList()).contains(user.getUsername())) {
-            System.out.println("该用户名已存在！");
+            System.out.println("The user name already exists！");
             return false;
         }
         List<Long> ids = users.stream().map(User::getId).collect(Collectors.toList());
@@ -100,7 +100,7 @@ public class RegisterView {
         user.setStatus(StatusConstants.ENABLE);
         users.add(user);
         MyUtil.writeFile(FileConstants.USER_INFO_PATH, JSON.toJSONString(users));
-        System.out.println("注册成功！");
+        System.out.println("Registered successfully！");
         return true;
     }
 }
