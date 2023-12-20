@@ -89,11 +89,11 @@ public class RegisterView {
         Random r = new Random();
         //随机生成用户id
         if (CollectionUtils.isEmpty(ids)) {
-            user.setId(Long.parseLong(DateUtil.format(DateTime.now(),"yyyyMMddHHmmssSSS")+ r.nextInt(999)));
+            user.setId(Long.parseLong(DateUtil.format(DateTime.now(),"yyyyMMddHHmmssSSS")));
         } else {
-            long id = Long.parseLong(DateUtil.format(DateTime.now(),"yyyMMddHHmmssSSS") + r.nextInt(999));
+            long id = Long.parseLong(DateUtil.format(DateTime.now(),"yyyMMddHHmmssSSS"));
             while (ids.contains(id)) {
-                id = Long.parseLong(DateUtil.format(DateTime.now(),"yyyMMddHHmmssSSS") + r.nextInt(999));
+                id = Long.parseLong(DateUtil.format(DateTime.now(),"yyyMMddHHmmssSSS"));
             }
             user.setId(id);
         }

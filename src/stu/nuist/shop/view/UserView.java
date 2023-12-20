@@ -300,7 +300,9 @@ public class UserView {
         }
         for (int i = 0; i < userOrders.size(); i++) {
             int finalI = i;
-            List<Detail> orderDetails = details.stream().filter(detail -> detail.getOrderId().equals(userOrders.get(finalI).getId())).collect(Collectors.toList());
+            List<Detail> orderDetails = details.stream().filter(detail ->
+                    Objects.nonNull(detail.getOrderId()) && detail.getOrderId().equals(userOrders.get(finalI).getId()))
+                    .collect(Collectors.toList());
             System.out.println((i + 1) + ". " + userOrders.get(finalI).toString());
             for (int j = 0; j < orderDetails.size(); j++) {
                 System.out.println("——" + (j + 1) + ". " + orderDetails.get(j).toString());
