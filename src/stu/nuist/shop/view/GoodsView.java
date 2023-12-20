@@ -339,7 +339,7 @@ public class GoodsView {
             detail.setId(Long.parseLong(DateUtil.format(LocalDateTime.now(), StringConstants.SDF_YYYY_MM_DD) + String.format("%04d", 1)));
         } else {
             List<Long> list = detailIds.stream()
-                    .filter(id -> id.toString().startsWith(DateUtil.format(LocalDateTime.now(), StringConstants.SDF_YYYY_MM_DD)))
+                    .filter(id -> Objects.nonNull(id) && id.toString().startsWith(DateUtil.format(LocalDateTime.now(), StringConstants.SDF_YYYY_MM_DD)))
                     .collect(Collectors.toList());
             if (CollectionUtils.isEmpty(list)) {
                 detail.setId(Long.parseLong(DateUtil.format(LocalDateTime.now(), StringConstants.SDF_YYYY_MM_DD) + String.format("%04d", 1)));
